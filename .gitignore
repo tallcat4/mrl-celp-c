@@ -1,0 +1,13 @@
+*.o
+*.a
+*.dSYM/
+decoder/mrl2wav
+decoder/tests/test_vectors
+encoder/wav2mrl
+encoder/tests/*.out.mrl
+encoder/examples/esp32/build*/
+encoder/examples/esp32/build*.log
+encoder/examples/esp32/sdkconfig
+encoder/examples/esp32/sdkconfig.old
+encoder/examples/esp32/dependencies.lock
+encoder/tests/mcu/*/build/

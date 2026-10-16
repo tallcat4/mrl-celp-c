@@ -1,0 +1,8 @@
+[mapping:mrl_ram]
+archive: libmain.a
+entries:
+    dsp (noflash)
+    bits (noflash)
+    tables (noflash)
+    decoder (noflash)
+    encoder (noflash)

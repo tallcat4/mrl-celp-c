@@ -1,0 +1,28 @@
+The decoder is a C port of the CELP decoder in jr-conventional-line-radio-receiver
+(https://github.com/soltia48/jr-conventional-line-radio-receiver, crates/jr-voice/src/celp,
+commit dfc7440), whose fixed-point DSP and tables come from mcelp-codec
+(https://github.com/soltia48/mcelp-codec). Both are distributed under the MIT license
+reproduced below; the port and its changes are under the same license.
+
+MIT License
+
+Copyright (c) 2026 KIRISHIKI Yudai
+Copyright (c) 2026 tallcat4 (C port)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
