@@ -71,6 +71,7 @@ void mrl_enh_default_config(mrl_enh_config *c) {
     c->pitch_enhance = 1;
     c->noise_enhance = 1;
     c->bass_postfilter = 1;
+    c->bass_strength = 0.25f;   /* 0.5 だと低域が周期的すぎてブザーのような声になった(実データの聴き比べ) */
 }
 
 size_t mrl_enhanced_size(void) { return sizeof(struct mrl_enhanced); }
@@ -223,9 +224,9 @@ static void bass_postfilter(mrl_enhanced *e, float out[160]) {
             den += 0.5f * (b[base + n] * b[base + n] + avg * avg);
         }
         rho = den > 0.0f ? num / den : 0.0f;
-        target = 0.5f * (rho - 0.3f) / 0.4f;
+        target = e->cfg.bass_strength * (rho - 0.3f) / 0.4f;
         if (target < 0.0f) target = 0.0f;
-        if (target > 0.5f) target = 0.5f;
+        if (target > e->cfg.bass_strength) target = e->cfg.bass_strength;
         for (n = 0; n < 80; n++) {
             float lp = 0.0f;
             int m = 80 * sub + n;

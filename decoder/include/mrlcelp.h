@@ -44,6 +44,7 @@ typedef struct {
     int pitch_enhance;     /* 1: AMR-WB のピッチ強調 */
     int noise_enhance;     /* 1: AMR-WB のノイズ強調 */
     int bass_postfilter;   /* 1: G.718 型のバスポストフィルタ */
+    float bass_strength;   /* バスポストフィルタの α の上限(既定 0.25。大きいほど低域の倍音の間を消す。強すぎるとブザーのような声) */
 } mrl_enh_config;
 typedef struct mrl_enhanced mrl_enhanced;
 void mrl_enh_default_config(mrl_enh_config *c);
@@ -53,6 +54,25 @@ mrl_enhanced *mrl_enhanced_init(void *mem, const mrl_enh_config *cfg);
 int mrl_decode_enhanced(mrl_enhanced *e, const uint8_t payload[MRL_FRAME_BYTES], int16_t pcm[MRL_FRAME_SAMPLES]);
 int mrl_enhanced_flush(mrl_enhanced *e, int16_t pcm[MRL_FRAME_SAMPLES / 2]);
 long mrl_enhanced_limited(const mrl_enhanced *e);   /* リミッタが働いた sample 数 */
+
+/* 帯域拡張(8 kHz → 16 kHz)。どの復号の出力にも付けられる後処理。4 kHz より上は、声としてもっともらしく作った音(本物ではない)。
+ * 80 sample(10 ms)ずつ 160 sample にする。出力は mrl_widen_delay() sample(16 kHz)遅れる */
+typedef struct {
+    float gain;            /* 高域の大きさ(1 = 3〜3.8 kHz と同じ密度 × 傾きの係数。既定 1.5) */
+    float low_hz, high_hz; /* 足す帯域(既定 3900〜6000 Hz) */
+    float env_hz;          /* 高域の音源の包絡の平滑(既定 150 Hz。大きいほどピッチの揺れが残り、ざらつきやすい) */
+    float fac_power;       /* 傾きの係数 1 − tilt のべき(既定 2。大きいほど母音に足さない) */
+    float slope_hz;        /* 高域の傾き(1 次の低域通過の周波数、既定 4500 Hz。0 で平ら) */
+    int source;            /* 高域の音源: 0 = 雑音 × 包絡、1 = 1.2〜3.8 kHz の全波整流(有声音では倍音が続く、既定)、2 = 有声の度合いで混ぜる */
+    float aperiodic;       /* source = 1 のとき、有声音にも混ぜる雑音の割合(パワー、0〜1。既定 0.1) */
+    int square;            /* 1: 全波整流 |x| の代わりに 2 乗 x²(2 次の和と差の周波数だけを作る。既定 1) */
+} mrl_widen_config;
+typedef struct mrl_widen mrl_widen;
+void mrl_widen_default_config(mrl_widen_config *c);
+size_t mrl_widen_size(void);
+mrl_widen *mrl_widen_init(void *mem, const mrl_widen_config *cfg);
+void mrl_widen_process(mrl_widen *w, const int16_t in[80], int16_t out[160]);
+int mrl_widen_delay(void);
 
 #ifdef __cplusplus
 }

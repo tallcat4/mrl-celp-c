@@ -3,7 +3,7 @@ CC ?= cc
 CFLAGS ?= -O2
 # -ffp-contract=off: ゲインと LSF の予測(f32)を原本と同じ丸めにする(積和の融合を禁止)
 DEC_CFLAGS = $(CFLAGS) -std=c99 -Wall -Wextra -Wno-unused-parameter -ffp-contract=off -Iinclude -Isrc
-SRC = src/dsp.c src/bits.c src/tables.c src/decoder.c src/enhance.c src/mpostfilter.c
+SRC = src/dsp.c src/bits.c src/tables.c src/decoder.c src/enhance.c src/mpostfilter.c src/widen.c
 OBJ = $(SRC:.c=.o)
 
 all: libmrldec.a mrl2wav tests/test_vectors
