@@ -1,0 +1,9 @@
+# 誤り訂正の参照:jr-conventional-line-radio-receiver(commit 9945870)の
+# crates/receiver-core/src/voice_frame.rs の decode と decode_soft の結果のハッシュ。
+# 列: カテゴリ ケース数 硬判定で受理した数 軟判定で受理した数 FNV-1a 64
+# 作り方は tests/reference/README.md。
+clean 500 500 500 5a8f9f4561d08a22
+scattered 3000 1372 1720 8b042452e7fe4297
+uninformed 1000 410 447 8c5d805423b06599
+burst 1500 568 1159 c6c9097bc20f509d
+random 2000 0 0 94eb5aa73e186ba5

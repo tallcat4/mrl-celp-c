@@ -11,3 +11,15 @@ encoder/examples/esp32/sdkconfig
 encoder/examples/esp32/sdkconfig.old
 encoder/examples/esp32/dependencies.lock
 encoder/tests/mcu/*/build/
+fec/tests/test_fec
+fec/tests/reference/target/
+fec/tests/reference/Cargo.lock
+fec/tests/reference/src/voice_frame.rs
+fec/tests/reference/src/coding.rs
+fec/tests/reference/src/voice_coordinates.in
+# 無線の録音データ(電波法上、公開しない)
+JR_TRAIN_CELP_*
+*.iq
+*.cu8
+*.cs16
+*.cf32

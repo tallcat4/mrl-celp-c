@@ -1,0 +1,9 @@
+[package]
+name = "fecref"
+version = "0.1.0"
+edition = "2021"
+[features]
+default = ["synthesis"]
+synthesis = []
+[profile.release]
+opt-level = 2
